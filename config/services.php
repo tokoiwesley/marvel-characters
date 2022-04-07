@@ -30,4 +30,10 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'marvel' => [
+        'key' => env('MARVEL_PUBLIC_KEY'),
+        'secret' => env('MARVEL_PRIVATE_KEY'),
+        'endpoint' => env('MARVEL_CHARACTERS_ENDPOINT', 'https://gateway.marvel.com/v1/public/characters')
+    ],
+
 ];
