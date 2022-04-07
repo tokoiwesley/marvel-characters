@@ -17,7 +17,7 @@ class CreateCharactersTable extends Migration
             $table->id();
             $table->integer('unique_id')->nullable();
             $table->string("name")->nullable();
-            $table->string("description")->nullable();
+            $table->mediumText("description")->nullable();
             $table->string("modified")->nullable();
             $table->string("resource_uri")->nullable();
             $table->json('thumbnail')->nullable();

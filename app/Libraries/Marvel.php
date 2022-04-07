@@ -4,16 +4,16 @@ namespace App\Libraries;
 
 class Marvel
 {
-    public static function getClientParams(): string
+    public static function getClientSideParams(): string
     {
-        return "apiKey=" . Marvel::getPublicKey();
+        return "apikey=" . Marvel::getPublicKey();
     }
 
-    public static function getServerParams(): string
+    public static function getServerSideParams(): string
     {
         $timestamp = Marvel::getTimestamp();
         $params = "ts=" . $timestamp
-            . "&apiKey=" . Marvel::getPublicKey()
+            . "&apikey=" . Marvel::getPublicKey()
             . "&hash=" . Marvel::getHash($timestamp);
         return $params;
     }
