@@ -34,10 +34,11 @@
                 @foreach($characters as $character)
                     @if($loop->index < 4)
                         <div class="col-sm">
-                            <img src="https://via.placeholder.com/540x614.jpg"
-                                 alt="{{ $character->name }} - Marvel character's image"
-                                 class="img-fluid img-thumbnail mx-auto d-block"
-                                 width="250" height="315">
+                            <img
+                                src="{{ $character->thumbnail['path'] .".". $character->thumbnail['extension'] . "?{$marvel->getClientSideParams()}" }}"
+                                alt="{{ $character->name }} image"
+                                class="img-fluid img-thumbnail mx-auto d-block"
+                                width="250" height="315">
                             <p class="text-center">{{ $character->name }}</p>
                         </div>
                     @endif
@@ -48,10 +49,11 @@
             @foreach($characters as $character)
                 @if($loop->index >= 4 and $loop->index < 8)
                     <div class="col-sm">
-                        <img src="https://via.placeholder.com/540x614.jpg"
-                             alt="{{ $character->name }} - Marvel character's image"
-                             class="img-fluid img-thumbnail mx-auto d-block"
-                             width="250" height="315">
+                        <img
+                            src="{{ $character->thumbnail['path'] .".". $character->thumbnail['extension'] . "?{$marvel->getClientSideParams()}" }}"
+                            alt="{{ $character->name }} image"
+                            class="img-fluid img-thumbnail mx-auto d-block"
+                            width="250" height="315">
                         <p class="text-center">{{ $character->name }}</p>
                     </div>
                 @endif
@@ -61,10 +63,11 @@
             @foreach($characters as $character)
                 @if($loop->index >= 8 and $loop->index < 12)
                     <div class="col-sm">
-                        <img src="https://via.placeholder.com/540x614.jpg"
-                             alt="{{ $character->name }} - Marvel character's image"
-                             class="img-fluid img-thumbnail mx-auto d-block"
-                             width="250" height="315">
+                        <img
+                            src="{{ $character->thumbnail['path'] .".". $character->thumbnail['extension'] . "?{$marvel->getClientSideParams()}" }}"
+                            alt="{{ $character->name }} image"
+                            class="img-fluid img-thumbnail mx-auto d-block"
+                            width="250" height="315">
                         <p class="text-center">{{ $character->name }}</p>
                     </div>
                 @endif
@@ -74,10 +77,11 @@
             @foreach($characters as $character)
                 @if($loop->index >= 12 and $loop->index < 16)
                     <div class="col-sm">
-                        <img src="https://via.placeholder.com/540x614.jpg"
-                             alt="{{ $character->name }} - Marvel character's image"
-                             class="img-fluid img-thumbnail mx-auto d-block"
-                             width="250" height="315">
+                        <img
+                            src="{{ $character->thumbnail['path'] .".". $character->thumbnail['extension'] . "?{$marvel->getClientSideParams()}" }}"
+                            alt="{{ $character->name }} image"
+                            class="img-fluid img-thumbnail mx-auto d-block"
+                            width="250" height="315">
                         <p class="text-center">{{ $character->name }}</p>
                     </div>
                 @endif
@@ -87,10 +91,11 @@
             @foreach($characters as $character)
                 @if($loop->index >= 16)
                     <div class="col-sm">
-                        <img src="https://via.placeholder.com/540x614.jpg"
-                             alt="{{ $character->name }} - Marvel character's image"
-                             class="img-fluid img-thumbnail mx-auto d-block"
-                             width="250" height="315">
+                        <img
+                            src="{{ $character->thumbnail['path'] .".". $character->thumbnail['extension'] . "?{$marvel->getClientSideParams()}" }}"
+                            alt="{{ $character->name }} image"
+                            class="img-fluid img-thumbnail mx-auto d-block"
+                            width="250" height="315">
                         <p class="text-center">{{ $character->name }}</p>
                     </div>
                 @endif

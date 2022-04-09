@@ -44,38 +44,87 @@ class FetchMarvelCharacters implements ShouldQueue
 
         $verb = 'GET';
         $serverSideParams = Marvel::getServerSideParams();
-        $url = config('services.marvel.endpoint') . "?$serverSideParams";
+        $limit = 100; // Set limit of number of resources in the result
+        $url = config('services.marvel.endpoint') . "?$serverSideParams&limit=$limit";
 
         try {
+            // Attempt retrieving the first set of characters
             $response = $http->request($verb, $url);
             $responseBody = json_decode($response->getBody(), true);
+
+            $offset = $responseBody['data']['offset']; // Set character resources offset
+            $limit = $responseBody['data']['limit']; // Set character resources limit for result
+            $total = $responseBody['data']['total']; // Set number of all character resources
+
             Log::info('Marvel Characters: ', [
-                'offset' => $responseBody['data']['offset'],
-                'limit' => $responseBody['data']['limit'],
-                'total' => $responseBody['data']['total'],
+                'offset' => $offset,
+                'limit' => $limit,
+                'total' => $total,
                 'count' => $responseBody['data']['count'],
             ]);
 
             $results = $responseBody['data']['results'];
             // Write results to DB
             foreach ($results as $result) {
-                $character = new Character();
-                $character->unique_id = $result['id'];
-                $character->name = $result['name'];
-                $character->description = $result['description'];
-                $character->modified = $result['modified'];
-                $character->resource_uri = $result['resourceURI'];
-                $character->thumbnail = json_encode($result['thumbnail']);
-                $character->comics = json_encode($result['comics']);
-                $character->series = json_encode($result['series']);
-                $character->stories = json_encode($result['stories']);
-                $character->events = json_encode($result['events']);
-                $character->urls = json_encode($result['urls']);
-                $character->save();
+                $this->saveCharacter($result);
             }
 
+            // Check for more sets of characters
+            if ($total > $limit) {
+                // Update the offset for the second set of characters
+                $offset += $limit;
+                // Generate URLs for fetching the rest of the characters
+                $urls = [];
+                for ($i = 0; $offset <= $total; $i++, $offset += $limit) {
+                    $urls[$i] = config('services.marvel.endpoint') . "?$serverSideParams&limit=$limit&offset=$offset";
+                }
+
+//                Log::info('Genrated URLs: ', $urls);
+
+                // Fetch the rest of the characters
+                /*foreach ($urls as $url) {
+                    sleep(3); // apply a delay before making a subsequent request
+                    Log::info('New URl: ', [$url]);
+                    $response = $http->request($verb, $url);
+                    $responseBody = json_decode($response->getBody(), true);
+
+                    Log::info('Marvel Characters: ', [
+                        'offset' => $responseBody['data']['offset'],
+                        'limit' => $responseBody['data']['limit'],
+                        'total' => $responseBody['data']['total'],
+                        'count' => $responseBody['data']['count'],
+                    ]);
+
+                    $results = $responseBody['data']['results'];
+                    // Write results to DB
+                    foreach ($results as $result) {
+                        $this->saveCharacter($result);
+                    }
+                }*/
+            }
         } catch (ClientException|GuzzleException $e) {
             report($e);
         }
+    }
+
+    /**
+     * @param $result
+     * @return void
+     */
+    private function saveCharacter($result): void
+    {
+        Character::create([
+            'unique_id' => $result['id'],
+            'name' => $result['name'],
+            'description' => $result['description'],
+            'modified' => $result['modified'],
+            'resource_uri' => $result['resourceURI'],
+            'thumbnail' => $result['thumbnail'],
+            'comics' => $result['comics'],
+            'series' => $result['series'],
+            'stories' => $result['stories'],
+            'events' => $result['events'],
+            'urls' => $result['urls'],
+        ]);
     }
 }
