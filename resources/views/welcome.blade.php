@@ -94,9 +94,16 @@
         </div>
     </main>
 
-    <footer></footer>
+    <footer>
+        <div class="text-center">
+            <p>Page {{ $characters->currentPage() }} of {{ $characters->lastPage() }}.
+                Displaying {{ $characters->count() }} characters.
+                Total characters: {{ $characters->total() }}</p>
+        </div>
+        <div class="d-flex justify-content-center">
+            {{ $characters->links('vendor.pagination.bootstrap-4') }}
+        </div>
+    </footer>
 </div>
-
-
 </body>
 </html>
