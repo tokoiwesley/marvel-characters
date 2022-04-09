@@ -28,17 +28,21 @@
     <main class="content mt-5 mb-5">
 
         <div class="row">
-            @foreach($characters as $character)
-                @if($loop->index < 4)
-                    <div class="col-sm">
-                        <img src="https://via.placeholder.com/540x614.jpg"
-                             alt="{{ $character->name }} - Marvel character's image"
-                             class="img-fluid img-thumbnail mx-auto d-block"
-                             width="250" height="315">
-                        <p class="text-center">{{ $character->name }}</p>
-                    </div>
-                @endif
-            @endforeach
+            @if($characters->isEmpty())
+                <p class="text-center">There are no characters to display!</p>
+            @else
+                @foreach($characters as $character)
+                    @if($loop->index < 4)
+                        <div class="col-sm">
+                            <img src="https://via.placeholder.com/540x614.jpg"
+                                 alt="{{ $character->name }} - Marvel character's image"
+                                 class="img-fluid img-thumbnail mx-auto d-block"
+                                 width="250" height="315">
+                            <p class="text-center">{{ $character->name }}</p>
+                        </div>
+                    @endif
+                @endforeach
+            @endif
         </div>
         <div class="row">
             @foreach($characters as $character)
