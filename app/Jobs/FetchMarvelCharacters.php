@@ -19,6 +19,7 @@ class FetchMarvelCharacters implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+
     /**
      * Create a new job instance.
      *
@@ -36,6 +37,8 @@ class FetchMarvelCharacters implements ShouldQueue
      */
     public function handle()
     {
+        ini_set('memory_limit', '1024M');
+
         $http = new Client([
             'headers' => [
                 'Accept' => 'application/json',
@@ -79,11 +82,9 @@ class FetchMarvelCharacters implements ShouldQueue
                     $urls[$i] = config('services.marvel.endpoint') . "?$serverSideParams&limit=$limit&offset=$offset";
                 }
 
-//                Log::info('Genrated URLs: ', $urls);
-
                 // Fetch the rest of the characters
-                /*foreach ($urls as $url) {
-                    sleep(3); // apply a delay before making a subsequent request
+                foreach ($urls as $url) {
+                    sleep(15);
                     Log::info('New URl: ', [$url]);
                     $response = $http->request($verb, $url);
                     $responseBody = json_decode($response->getBody(), true);
@@ -100,7 +101,7 @@ class FetchMarvelCharacters implements ShouldQueue
                     foreach ($results as $result) {
                         $this->saveCharacter($result);
                     }
-                }*/
+                }
             }
         } catch (ClientException|GuzzleException $e) {
             report($e);
