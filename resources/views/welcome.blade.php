@@ -25,8 +25,7 @@
         <h1 class="text-center">Marvel Characters</h1>
     </header>
 
-    <main class="content mt-5 mb-5">
-
+    <main class="content mt-5 mb-3">
         <div class="row">
             @if($characters->isEmpty())
                 <p class="text-center">There are no characters to display!</p>
@@ -113,7 +112,7 @@
         </div>
     </main>
 
-    <footer>
+    <footer class="">
         <div class="text-center">
             <p>Page {{ $characters->currentPage() }} of {{ $characters->lastPage() }}.
                 Displaying {{ $characters->count() }} characters.
@@ -122,7 +121,7 @@
         <div class="d-flex justify-content-center">
             {{ $characters->links('vendor.pagination.bootstrap-4') }}
         </div>
-        <div class="text-center">
+        <div class="text-center mt-3 mb-5">
             <small>Data provided by Marvel. © 2014 Marvel</small>
         </div>
     </footer>
