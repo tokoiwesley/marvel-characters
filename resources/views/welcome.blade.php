@@ -19,8 +19,8 @@
     </style>
 </head>
 <body class="antialiased">
+@inject('marvel', 'App\Libraries\Marvel')
 <div class="container">
-    @inject('marvel', 'App\Libraries\Marvel')
     <header class="mt-2">
         <h1 class="text-center">Marvel Characters</h1>
     </header>
@@ -34,12 +34,14 @@
                 @foreach($characters as $character)
                     @if($loop->index < 4)
                         <div class="col-sm">
-                            <img
-                                src="{{ $character->thumbnail['path'] .".". $character->thumbnail['extension'] . "?{$marvel->getClientSideParams()}" }}"
-                                alt="{{ $character->name }} image"
-                                class="img-fluid img-thumbnail mx-auto d-block"
-                                width="250" height="315">
-                            <p class="text-center">{{ $character->name }}</p>
+                            <a href="{{ route('characters.show', ['id' => $character->unique_id]) }}">
+                                <img
+                                    src="{{ $character->thumbnail['path'] .".". $character->thumbnail['extension'] . "?{$marvel->getClientSideParams()}" }}"
+                                    alt="{{ $character->name }} image"
+                                    class="img-fluid img-thumbnail mx-auto d-block"
+                                    width="250" height="315">
+                                <p class="text-center">{{ $character->name }}</p>
+                            </a>
                         </div>
                     @endif
                 @endforeach
@@ -49,12 +51,14 @@
             @foreach($characters as $character)
                 @if($loop->index >= 4 and $loop->index < 8)
                     <div class="col-sm">
-                        <img
-                            src="{{ $character->thumbnail['path'] .".". $character->thumbnail['extension'] . "?{$marvel->getClientSideParams()}" }}"
-                            alt="{{ $character->name }} image"
-                            class="img-fluid img-thumbnail mx-auto d-block"
-                            width="250" height="315">
-                        <p class="text-center">{{ $character->name }}</p>
+                        <a href="{{ route('characters.show', ['id' => $character->unique_id]) }}">
+                            <img
+                                src="{{ $character->thumbnail['path'] .".". $character->thumbnail['extension'] . "?{$marvel->getClientSideParams()}" }}"
+                                alt="{{ $character->name }} image"
+                                class="img-fluid img-thumbnail mx-auto d-block"
+                                width="250" height="315">
+                            <p class="text-center">{{ $character->name }}</p>
+                        </a>
                     </div>
                 @endif
             @endforeach
@@ -63,12 +67,14 @@
             @foreach($characters as $character)
                 @if($loop->index >= 8 and $loop->index < 12)
                     <div class="col-sm">
-                        <img
-                            src="{{ $character->thumbnail['path'] .".". $character->thumbnail['extension'] . "?{$marvel->getClientSideParams()}" }}"
-                            alt="{{ $character->name }} image"
-                            class="img-fluid img-thumbnail mx-auto d-block"
-                            width="250" height="315">
-                        <p class="text-center">{{ $character->name }}</p>
+                        <a href="{{ route('characters.show', ['id' => $character->unique_id]) }}">
+                            <img
+                                src="{{ $character->thumbnail['path'] .".". $character->thumbnail['extension'] . "?{$marvel->getClientSideParams()}" }}"
+                                alt="{{ $character->name }} image"
+                                class="img-fluid img-thumbnail mx-auto d-block"
+                                width="250" height="315">
+                            <p class="text-center">{{ $character->name }}</p>
+                        </a>
                     </div>
                 @endif
             @endforeach
@@ -77,12 +83,14 @@
             @foreach($characters as $character)
                 @if($loop->index >= 12 and $loop->index < 16)
                     <div class="col-sm">
-                        <img
-                            src="{{ $character->thumbnail['path'] .".". $character->thumbnail['extension'] . "?{$marvel->getClientSideParams()}" }}"
-                            alt="{{ $character->name }} image"
-                            class="img-fluid img-thumbnail mx-auto d-block"
-                            width="250" height="315">
-                        <p class="text-center">{{ $character->name }}</p>
+                        <a href="{{ route('characters.show', ['id' => $character->unique_id]) }}">
+                            <img
+                                src="{{ $character->thumbnail['path'] .".". $character->thumbnail['extension'] . "?{$marvel->getClientSideParams()}" }}"
+                                alt="{{ $character->name }} image"
+                                class="img-fluid img-thumbnail mx-auto d-block"
+                                width="250" height="315">
+                            <p class="text-center">{{ $character->name }}</p>
+                        </a>
                     </div>
                 @endif
             @endforeach
@@ -91,12 +99,14 @@
             @foreach($characters as $character)
                 @if($loop->index >= 16)
                     <div class="col-sm">
-                        <img
-                            src="{{ $character->thumbnail['path'] .".". $character->thumbnail['extension'] . "?{$marvel->getClientSideParams()}" }}"
-                            alt="{{ $character->name }} image"
-                            class="img-fluid img-thumbnail mx-auto d-block"
-                            width="250" height="315">
-                        <p class="text-center">{{ $character->name }}</p>
+                        <a href="{{ route('characters.show', ['id' => $character->unique_id]) }}">
+                            <img
+                                src="{{ $character->thumbnail['path'] .".". $character->thumbnail['extension'] . "?{$marvel->getClientSideParams()}" }}"
+                                alt="{{ $character->name }} image"
+                                class="img-fluid img-thumbnail mx-auto d-block"
+                                width="250" height="315">
+                            <p class="text-center">{{ $character->name }}</p>
+                        </a>
                     </div>
                 @endif
             @endforeach
@@ -111,6 +121,9 @@
         </div>
         <div class="d-flex justify-content-center">
             {{ $characters->links('vendor.pagination.bootstrap-4') }}
+        </div>
+        <div class="text-center">
+            <small>Data provided by Marvel. © 2014 Marvel</small>
         </div>
     </footer>
 </div>

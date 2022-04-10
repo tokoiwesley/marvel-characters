@@ -13,4 +13,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'App\Http\Controllers\CharacterController@index');
+Route::get('/', 'App\Http\Controllers\CharacterController@index')->name('characters');
+Route::get('character/{id}', 'App\Http\Controllers\CharacterController@show')->name('characters.show');
